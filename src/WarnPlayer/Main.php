@@ -71,10 +71,30 @@
 
             $file = file_get_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
 
-            if($file === "3") {
+            if($file >= "3") {
 
-              $action = file_get_contents($this->dataPath() . "config.yml");
+              $string = "action_after_three_warns:";
 
-              if(preg_match("#action_after_three_warns: ([^\r\n]+)#i", $action, $matches)) {
+              $action = substr(strstr(file_get_contents($this->dataPath() . "config.yml"), $string), strlen($string));
 
-                
+              if($action === "kick") {
+
+                $player->kick("You were kicked for being warned 3+ times.");
+
+                $sender->sendMessage(TF::GREEN . $player_name . " was kicked for being warned 3+ times.");
+
+                return true;
+
+              } else if($action === "ban") {
+
+                $player->setBanned(true);
+
+                $sender->sendMessage(TF::GREEN . $player_name . " was banned for being warned 3+ times.");
+
+                return true;
+
+              } else {
+
+                $this->getServer()->getLogger()->error($action . " in file config.yml is invalid, valid options: kick, ban. Disabling plugin.");
+
+                $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("WarnPlayer"));
