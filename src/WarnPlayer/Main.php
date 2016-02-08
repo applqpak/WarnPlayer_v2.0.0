@@ -65,4 +65,16 @@
 
             unset($args[0]);
 
+            $player_name = $player->getName();
+
             $reason = implode(" ", $args);
+
+            $file = file_get_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
+
+            if($file === "3") {
+
+              $action = file_get_contents($this->dataPath() . "config.yml");
+
+              if(preg_match("#action_after_three_warns: ([^\r\n]+)#i", $action, $matches)) {
+
+                
