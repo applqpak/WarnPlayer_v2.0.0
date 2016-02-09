@@ -67,6 +67,10 @@
 
             $player_name = $player->getName();
 
+            touch($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
+
+            file_put_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt", "0");
+
             $reason = implode(" ", $args);
 
             $file = file_get_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
@@ -152,6 +156,8 @@
             if(!(file_exists($this->dataPath() . "Players/" . strtolower($player_name) . ".txt"))) {
 
               $sender->sendMessage(TF::RED . $player_name . " has no warns.");
+
+              return true;
 
             } else {
 
