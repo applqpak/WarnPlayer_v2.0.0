@@ -158,3 +158,9 @@
             } else {
 
               $player_warns = file_get_contents($this->dataPath() . "Players" . strtolower($player_name) . ".txt");
+
+              $sender->sendMessage(TF::GREEN . "Player " . $player_name . " has " . $player_warns . " warns.");
+
+              return true;
+
+            }
