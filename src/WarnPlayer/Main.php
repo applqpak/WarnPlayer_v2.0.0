@@ -122,3 +122,39 @@
             return true;
 
           }
+
+        }
+
+      }
+
+      if(strtolower($cmd->getName()) === "warns") {
+
+        if(!(isset($args[0]))) {
+
+          $sender->sendMessage(TF::RED . "Error: not enough args. Usage: /warns <player>");
+
+          return true;
+
+        } else {
+
+          $name = $args[0];
+
+          $player = $this->getServer()->getPlayer($name);
+
+          if($player === null) {
+
+            $sender->sendMessage(TF::RED . "Player " . $name . " could not be found.");
+
+            return true;
+
+          } else {
+
+            $player_name = $player->getName();
+
+            if(!(file_exists($this->dataPath() . "Players/" . strtolower($player_name) . ".txt"))) {
+
+              $sender->sendMessage(TF::RED . $player_name . " has no warns.");
+
+            } else {
+
+              $player_warns = file_get_contents($this->dataPath() . "Players" . strtolower($player_name) . ".txt");
