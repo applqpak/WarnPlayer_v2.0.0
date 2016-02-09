@@ -67,9 +67,13 @@
 
             $player_name = $player->getName();
 
-            touch($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
+            if(!(file_exists($this->dataPath() . "Players/" . strtolower($player_name) . ".txt"))) {
 
-            file_put_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt", "0");
+              touch($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
+
+              file_put_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt", "0");
+
+            }
 
             $reason = implode(" ", $args);
 
