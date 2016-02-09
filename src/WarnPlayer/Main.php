@@ -81,7 +81,7 @@
 
             if($file >= "3") {
 
-              $string = "action_after_three_warns:";
+              $string = "action_after_three_warns: ";
 
               $action = substr(strstr(file_get_contents($this->dataPath() . "config.yml"), $string), strlen($string));
 
