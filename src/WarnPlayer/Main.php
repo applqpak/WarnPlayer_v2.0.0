@@ -98,3 +98,23 @@
                 $this->getServer()->getLogger()->error($action . " in file config.yml is invalid, valid options: kick, ban. Disabling plugin.");
 
                 $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("WarnPlayer"));
+
+                return true;
+
+              }
+
+            } else {
+
+              $player->sendMessage(TF::YELLOW . "You have been warned by " . $sender_name . " for " . $reason);
+
+              $this->getServer()->broadcastMessage(TF::YELLOW . $player_name . " was warned by " . $sender_name . " for " . $reason);
+
+              $file = file_get_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt");
+
+              file_put_contents($this->dataPath() . "Players/" . strtolower($player_name) . ".txt", $file + 1);
+
+              $sender->sendMessage(TF::GREEN . "Warned " . $player_name . ", and added +1 warns to their file.");
+
+              return true;
+
+            }
